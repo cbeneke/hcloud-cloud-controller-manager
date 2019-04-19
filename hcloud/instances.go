@@ -135,5 +135,14 @@ func nodeAddresses(server *hcloud.Server) []v1.NodeAddress {
 		v1.NodeAddress{Type: v1.NodeHostName, Address: server.Name},
 		v1.NodeAddress{Type: v1.NodeExternalIP, Address: server.PublicNet.IPv4.IP.String()},
 	)
+	for label, value := range server.Labels {
+		if label == "internal-ip" {
+			addresses = append(
+				addresses,
+				v1.NodeAddress{Type: v1.NodeInternalIP, Address: value},
+			)
+		}
+	}
+
 	return addresses
 }
