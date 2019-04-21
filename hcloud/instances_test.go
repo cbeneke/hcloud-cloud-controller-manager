@@ -56,6 +56,37 @@ func TestNodeAddressesByProviderID(t *testing.T) {
 	}
 }
 
+func TestNodeInternalAddressLabel(t *testing.T) {
+	env := newTestEnv()
+	defer env.Teardown()
+	env.Mux.HandleFunc("/servers/1", func(w http.ResponseWriter, r *http.Request) {
+		json.NewEncoder(w).Encode(schema.ServerGetResponse{
+			Server: schema.Server{
+				ID:   1,
+				Name: "node15",
+				PublicNet: schema.ServerPublicNet{
+					IPv4: schema.ServerPublicNetIPv4{
+						IP: "131.232.99.1",
+					},
+				},
+				Labels: map[string]string{
+					"kubernetes.hetzner.cloud/internal-ip": "10.0.0.1",
+				},
+			},
+		})
+	})
+
+	instances := newInstances(env.Client)
+	addr, err := instances.NodeAddressesByProviderID(context.TODO(), "hcloud://1")
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+	if len(addr) != 3 ||
+		addr[2].Type != v1.NodeInternalIP || addr[2].Address != "10.0.0.1" {
+		t.Errorf("Unexpected node addresses: %v", addr)
+	}
+}
+
 func TestNodeAddresses(t *testing.T) {
 	env := newTestEnv()
 	defer env.Teardown()
