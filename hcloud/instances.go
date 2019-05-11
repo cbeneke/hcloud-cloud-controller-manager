@@ -148,7 +148,7 @@ func nodeAddresses(server *hcloud.Server) []v1.NodeAddress {
 
 func internalLabelAddress(server *hcloud.Server) (v1.NodeAddress, bool) {
 	for label, value := range server.Labels {
-		if label == "kubernetes.hetzner.cloud/internal-ip" && net.ParseIP(value) != nil {
+		if label == internalIPLabel && net.ParseIP(value) != nil {
 			return v1.NodeAddress{Type: v1.NodeInternalIP, Address: value}, true
 		}
 	}

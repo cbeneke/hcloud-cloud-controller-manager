@@ -70,7 +70,7 @@ func TestNodeInternalAddressLabel(t *testing.T) {
 					},
 				},
 				Labels: map[string]string{
-					"kubernetes.hetzner.cloud/internal-ip": "10.0.0.1",
+					internalIPLabel: "10.0.0.1",
 				},
 			},
 		})

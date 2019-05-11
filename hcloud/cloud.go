@@ -32,6 +32,7 @@ const (
 	nodeNameENVVar       = "NODE_NAME"
 	providerName         = "hcloud"
 	providerVersion      = "v1.3.0"
+	internalIPLabel      = "kubernetes.io/internal-ip"
 )
 
 type cloud struct {
