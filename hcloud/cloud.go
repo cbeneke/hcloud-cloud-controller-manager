@@ -22,8 +22,7 @@ import (
 	"os"
 
 	"github.com/hetznercloud/hcloud-go/hcloud"
-	"k8s.io/kubernetes/pkg/cloudprovider"
-	"k8s.io/kubernetes/pkg/controller"
+	cloudprovider "k8s.io/cloud-provider"
 )
 
 const (
@@ -67,7 +66,8 @@ func newCloud(config io.Reader) (cloudprovider.Interface, error) {
 	}, nil
 }
 
-func (c *cloud) Initialize(clientBuilder controller.ControllerClientBuilder) {}
+func (c *cloud) Initialize(clientBuilder cloudprovider.ControllerClientBuilder, stop <-chan struct{}) {
+}
 
 func (c *cloud) Instances() (cloudprovider.Instances, bool) {
 	return c.instances, true
