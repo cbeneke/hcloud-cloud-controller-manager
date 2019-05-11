@@ -125,7 +125,7 @@ func (i instances) InstanceShutdownByProviderID(ctx context.Context, providerID 
 	if err != nil {
 		return
 	}
-	isOff = server.Status == hcloud.ServerStatusOff
+	isOff = server == nil || server.Status == hcloud.ServerStatusOff
 	return
 }
 
