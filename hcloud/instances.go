@@ -18,12 +18,9 @@ package hcloud
 
 import (
 	"context"
-<<<<<<< HEAD
 	"errors"
 	"net"
-=======
 	"k8s.io/kubernetes/pkg/cloudprovider"
->>>>>>> origin/master
 	"strconv"
 
 	"github.com/hetznercloud/hcloud-go/hcloud"
