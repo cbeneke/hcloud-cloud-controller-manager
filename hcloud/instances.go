@@ -18,7 +18,6 @@ package hcloud
 
 import (
 	"context"
-	"errors"
 	"net"
 	"k8s.io/kubernetes/pkg/cloudprovider"
 	"strconv"
